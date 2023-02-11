@@ -6,7 +6,7 @@
 /////////////////////////////////////////////////////
 #include <stdint.h>
 #include <cassert>
-#include <math.h>
+#include <cmath>
 
 template<typename T,unsigned len> class vector{
 // len = 3 is default, kept for scaling later on
@@ -26,7 +26,9 @@ public:
 	bool operator!=(const vector<T,len>& v);
 	vector<T,len> operator+(const vector<T,len>& v);
 	vector<T,len> operator-(const vector<T,len>& v);
-	vector<T,len> operator*(const vector<T,len>& v); // Cross product
+	vector<T,len> operator*(const vector<T,len>& v);	// Cross product
+	vector<T,len> operator*(const T num);				//multiplication by scalar
+	vector<T,len> operator/(T num);
 	T dotProduct(const vector<T,len>& v );
-	double norm(void);
+	T norm(void);
 }; 

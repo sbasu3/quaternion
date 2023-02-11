@@ -93,7 +93,7 @@ template <typename T , unsigned len> vector<T,len> vector<T,len>::operator-(cons
 
 template <typename T , unsigned len> vector<T,len> vector<T,len>::operator*(const vector<T,len>& v){
 // Cross product defined for vector 3
-// i *j = k , j * k = i , k * i = j , i *j *K = -1
+// i *j = k , j * k = i , k * i = j , i *j *k = -1
 	assert( len ==  3 );
 	vector<T,len> tmp;
 
@@ -132,9 +132,31 @@ template <typename T , unsigned len> vector<T,len> vector<T,len>::operator=(cons
 
 }
 
-template <typename T , unsigned len>  double vector<T,len>::norm(){
+template <typename T , unsigned len>  T vector<T,len>::norm(){
 
-	return sqrt(v.dotProduct(v));
+	vector<double,3> v = *this;
+
+	return (T) sqrt(v.dotProduct(v));
 }
 	
+template <typename T , unsigned len> vector<T,len> vector<T,len>::operator*(const T num){				//multiplication by scalar
+	vector<T,len> a;
+	uint32_t i;
+
+	for(i=0;i<this->length; i++)
+		a.vec[i] = num * vec[i];
+
+	a.length = length;
+	return a; 
+}
+template <typename T , unsigned len> vector<T,len> vector<T,len>::operator/(T num){
+	vector<T,len> a;
+	uint32_t i;
+	assert( num != 0 );
+	for(i=0;i<this->length; i++)
+		a.vec[i] = vec[i]/num;
+
+	a.length = length;
+	return a; 
+}
 

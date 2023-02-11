@@ -56,8 +56,18 @@ public:
 	//only normalises vector component and returns it
 	vector<double,3> normalise();
 	//will add when I require it
-	//quaternion exp(const quaternion& q);
-	//quaternion log(const quaternion& q);
-		
+	//friend quaternion exp(const quaternion& q);
+	//friend quaternion log(const quaternion& q);
+	quaternion rotateBy(quaternion Qr);
+	//friend quaternion rotateBy(quaternion Qr);
+    friend quaternion getTilt();
+    // omega are the gryo values
+    // deltaT is the elapsed time since last
+    friend quaternion getQDelta(double deltaT, vector<double,3> omega);
+    friend quaternion getTilt(quaternion q);
+    //apply complementary filter on acc and gyro values
+    // alpha between 0 and 1
+    friend quaternion getQCorrected(quaternion QTilt,quaternion Qgyro,double alpha);
+    friend quaternion getNextQ(const quaternion& Qt, const vector<double,3>& a, const vector<double,3>& omega,double deltaT);	
 
 };

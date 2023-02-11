@@ -73,8 +73,8 @@ quaternion quaternion::getNormal(void){
 		return *this;
 	else{
 			quaternion q0;
-			q0.w = mag*cos(phi);
-			q0.v = n * mag * sin(phi);	
+			q0.w = mag*std::cos(phi);
+			q0.v = n * mag * std::sin(phi);	
 			q0.form = NORMAL;
 
 			return q0;
@@ -87,10 +87,10 @@ quaternion quaternion::getPolar(void){
 		quaternion q;
 		//mag = sqrt(w*w + v.dotProduct(v));
 		q.mag = this->norm();
-		q.phi = acos(w/q.mag);
+		q.phi = std::acos(w/q.mag);
 
 		if(phi != 0)
-			q.n = v/(q.mag*sin(phi));
+			q.n = v/(q.mag*std::sin(phi));
 		else
 			q.n.set(0,0,0);
 
@@ -126,13 +126,14 @@ bool quaternion::operator==(const quaternion& q ){
 			return ( (w == q.w) && ( v == q.v) );
 		}else{
 			quaternion q0 = this->getNormal();
-			return ( q == q0);
+			return ( q0 == q);
+		}
 	}else{
 		if(this->form == POLAR){
-			return ( ( mag == q.mag) && ( phi == q.phi) && ( n = q.n ))
+			return ( ( mag == q.mag) && ( phi == q.phi) && ( n == q.n ));
 		}else{
 			quaternion q0 = this->getPolar();
-			return ( q == q0);
+			return ( q0 == q);
 		}
 	}
 }
@@ -149,7 +150,8 @@ quaternion quaternion::operator+(const quaternion& q){
 
 	quaternion q0,q1;
 
-	q1 = q.getNormal();
+	q1 = q;
+	q1 = q1.getNormal();
 	q0 = this->getNormal();
 
 
@@ -164,8 +166,9 @@ quaternion quaternion::operator+(const quaternion& q){
 quaternion quaternion::operator-(const quaternion& q){
 
 	quaternion q0,q1;
+	q1 = q;
 
-	q1 = q.getNormal();
+	q1 = q1.getNormal();
 	q0 = this->getNormal();
 
 
@@ -181,22 +184,23 @@ quaternion quaternion::operator*(const quaternion& q){
 
 	quaternion q0,q1;
 	//vector vec;
-
+	q1 = q;
 	if(form == POLAR){
 
-		q1 = q.getPolar();
+
+		q1 = q1.getPolar();
 
 		q0.mag = mag * q1.mag;
 	
 		q0.n = n * phi + q1.n * q1.phi;
 		q0.phi = q0.n.norm();
-		q0.n = vec/phi;
+		q0.n = q0.n/q0.phi;
 	}else{
 
-		q1 = q.getNormal();
+		q1 = q1.getNormal();
 
 		q0.w = w*q1.w - v.dotProduct(q1.v);
-		q0.v = w*q1.v + q1.w*v + v*q1.v;
+		q0.v = q1.v*w + v*q1.w + v*q1.v;
 
 	}
 	
@@ -204,7 +208,7 @@ quaternion quaternion::operator*(const quaternion& q){
 
 }
 
-quaternion operator*(const double& val){
+quaternion quaternion::operator*(const double& val){
 
 	quaternion q;
 
@@ -222,7 +226,7 @@ quaternion operator*(const double& val){
 	return q;
 }	
 
-quaternion operator/(const double& val){
+quaternion quaternion::operator/(const double & val){
 
 	quaternion q;
 
@@ -286,14 +290,14 @@ quaternion quaternion::pow(const double& x){
 
 	q0 = this->getPolar();
 
-	q0.mag = pow(q0.mag,x);
+	q0.mag = std::pow(q0.mag,x);
 
 	q0.phi = q0.phi * x;
 
 	return q0;
 
 }
-vector<double,3> quaternion:normalise(){
+vector<double,3> quaternion::normalise(){
 
 	vector<double,3> x;
 
@@ -309,7 +313,11 @@ vector<double,3> quaternion:normalise(){
 
 }
 
-
+ quaternion quaternion::rotateBy(quaternion Qr)
+{
+    quaternion q0 = *this;
+    return Qr*q0*Qr.conjugate();
+}
 
 
 
