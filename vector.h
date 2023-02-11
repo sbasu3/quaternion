@@ -6,6 +6,7 @@
 /////////////////////////////////////////////////////
 #include <stdint.h>
 #include <cassert>
+#include <math.h>
 
 template<typename T,unsigned len> class vector{
 // len = 3 is default, kept for scaling later on
@@ -27,4 +28,5 @@ public:
 	vector<T,len> operator-(const vector<T,len>& v);
 	vector<T,len> operator*(const vector<T,len>& v); // Cross product
 	T dotProduct(const vector<T,len>& v );
+	double norm(void);
 }; 

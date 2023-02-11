@@ -10,8 +10,10 @@ quaternion::quaternion(){
 
 	form = NORMAL;
 
+	//NORMAL
 	w = 0.0;
 
+	//POLAR
 	mag = 0.0;
 	phi = 0.0;
 }
@@ -30,13 +32,14 @@ quaternion::quaternion(const quaternion& q){
 
 	form = q.form;
 
-	w = q.w;
-	v = q.v;
-
-	mag = q.mag;
-	phi = q.phi;
-	n = q.n;
-
+	if(form == NORMAL){
+		w = q.w;
+		v = q.v;
+	}else{
+		mag = q.mag;
+		phi = q.phi;
+		n = q.n;
+	}
 
 }
 
@@ -69,26 +72,34 @@ quaternion quaternion::getNormal(void){
 	if(form == NORMAL)
 		return *this;
 	else{
-			w = mag*cos(phi);
-			v = n * mag * sin(phi);	
-			form = NORMAL;
+			quaternion q0;
+			q0.w = mag*cos(phi);
+			q0.v = n * mag * sin(phi);	
+			q0.form = NORMAL;
 
-			return *this;
+			return q0;
 	}
 }
 
 quaternion quaternion::getPolar(void){
 
 	if(form != POLAR){
-		mag = sqrt(w*w + v.dotProduct(v));
-		phi = acos(w/mag);
-		n = v/(mag*sin(phi));
+		quaternion q;
+		//mag = sqrt(w*w + v.dotProduct(v));
+		q.mag = this->norm();
+		q.phi = acos(w/q.mag);
 
-		form = POLAR; 
+		if(phi != 0)
+			q.n = v/(q.mag*sin(phi));
+		else
+			q.n.set(0,0,0);
 
-	}
+		form = POLAR;
 
-	return *this;
+		return q; 
+
+	}else
+		return *this;
 
 }
 
@@ -96,14 +107,16 @@ quaternion quaternion::operator=(const quaternion& q ){
 
 	form = q.form;
 
-	w = q.w;
-	v = q.v;
+	if(form == NORMAL){
+		w = q.w;
+		v = q.v;
+	}else{
+		mag = q.mag;
+		phi = q.phi;
+		n = q.n;
+	}
 
-	mag = q.mag;
-	phi = q.phi;
-	n = q.n;
-
-
+	return *this;
 }
 
 bool quaternion::operator==(const quaternion& q ){
@@ -124,6 +137,9 @@ bool quaternion::operator==(const quaternion& q ){
 	}
 }
 
+/// @brief 
+/// @param q 
+/// @return 
 bool quaternion::operator!=(const quaternion& q ){
 
 	return !( *this == q );
@@ -137,11 +153,12 @@ quaternion quaternion::operator+(const quaternion& q){
 	q0 = this->getNormal();
 
 
-	w = q0.w + q1.w;
-	v = q0.v + q1.v;
+	q0.w = q0.w + q1.w;
+	q0.v = q0.v + q1.v;
 	
-	form = NORMAL;
+	q0.form = NORMAL;
 
+	return q0;
 }
 
 quaternion quaternion::operator-(const quaternion& q){
@@ -152,75 +169,86 @@ quaternion quaternion::operator-(const quaternion& q){
 	q0 = this->getNormal();
 
 
-	w = q0.w - q1.w;
-	v = q0.v - q1.v;
+	q0.w = q0.w - q1.w;
+	q0.v = q0.v - q1.v;
 	
-	form = NORMAL;
+	q0.form = NORMAL;
 
+	return q0;
 }
 
 quaternion quaternion::operator*(const quaternion& q){
 
 	quaternion q0,q1;
-	vector vec;
+	//vector vec;
 
+	if(form == POLAR){
 
-	q1 = q.getPolar();
-	q0 = this->getPolar();
+		q1 = q.getPolar();
 
-
-	mag = q0.mag * q1.mag;
+		q0.mag = mag * q1.mag;
 	
-	vec = q0.n * q0.phi + q1.n * q1.phi;
-	phi = sqrt(vec.dotProduct(vec));
-	n = vec/phi;
-	
+		q0.n = n * phi + q1.n * q1.phi;
+		q0.phi = q0.n.norm();
+		q0.n = vec/phi;
+	}else{
 
+		q1 = q.getNormal();
+
+		q0.w = w*q1.w - v.dotProduct(q1.v);
+		q0.v = w*q1.v + q1.w*v + v*q1.v;
+
+	}
 	
-	form = POLAR;
+	return q0;
 
 }
 
 quaternion operator*(const double& val){
 
+	quaternion q;
+
 	if(form == NORMAL){
-		w = w * val;
-		v = v * val;
+		q.w = w * val;
+		q.v = v * val;
+		q.form = NORMAL;
 	}else{
-		mag = mag * val;
+		q.mag = mag * val;
+		q.phi = phi;
+		q.n = n;
+		q.form = POLAR;
 	}
 
-	return *this;
+	return q;
 }	
 
 quaternion operator/(const double& val){
 
+	quaternion q;
+
 	if(form == NORMAL){
-		w = w / val;
-		v = v / val;
+		q.w = w / val;
+		q.v = v / val;
+		q.form = NORMAL;
 	}else{
-		mag = mag / val;
+
+		q.mag = mag / val;
+		q.phi = phi;
+		q.n = n;
+		q.form = POLAR;
 	}
 
-	return *this;
+	return q;
 }	
 
-double dotProduct(const quaternion& q ){
-
-	quaternion q0,q1;
-
-	q0 = this->getNormal();
-	q1 = q.getNormal();
-
-	return q0.w * q1.w + q0.v.dotProduct(q1.v);
-
-
-
-}
 
 double quaternion::norm(void){
 
-	return sqrt(this->dotProduct(*this));
+	if(form == NORMAL){
+		return sqrt(w*w +v.norm()*v.norm());
+	}else
+		return mag;
+	
 }
 
 quaternion quaternion::conjugate(void){
@@ -234,11 +262,11 @@ quaternion quaternion::conjugate(void){
 		q.v = this->v * (-1.0);
 		q.form = NORMAL; 
 	}else{
-		q.mag = 1/(this->mag);
-		q.phi = this->phi ;
-		q.n = this->n * (-1.0);
+		q.mag = this->mag;
+		q.phi = -this->phi ;
+		q.n = this->n;
 		
-		form = POLAR;
+		q.form = POLAR;
 	}
 
 	return q;
@@ -247,7 +275,7 @@ quaternion quaternion::conjugate(void){
 
 quaternion quaternion::inverse(void){
 
-	return this->conjugate()/this->norm();
+	return (this->conjugate() / (this->norm()*this->norm()));
 
 }
 
@@ -263,6 +291,21 @@ quaternion quaternion::pow(const double& x){
 	q0.phi = q0.phi * x;
 
 	return q0;
+
+}
+vector<double,3> quaternion:normalise(){
+
+	vector<double,3> x;
+
+	if (form == NORMAL){
+		x = v/v.norm();
+	}else{
+		//maybe division is not required
+		x = n/n.norm();
+	}
+
+
+	return x;
 
 }
 

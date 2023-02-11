@@ -8,9 +8,9 @@ using namespace std;
 void compare(vector<int,3> a , vector<int,3> c){
 
 	if( c == a)
-		cout<<" c equals a \n";
+		cout<<"equal\n";
 	else 
-		cout<<" c unequal to a \n";
+		cout<<"unequal\n";
 }
 
 int main (void){

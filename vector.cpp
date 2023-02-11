@@ -131,5 +131,10 @@ template <typename T , unsigned len> vector<T,len> vector<T,len>::operator=(cons
 	return *this;
 
 }
+
+template <typename T , unsigned len>  double vector<T,len>::norm(){
+
+	return sqrt(v.dotProduct(v));
+}
 	
 

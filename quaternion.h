@@ -40,18 +40,24 @@ public:
 	bool operator!=(const quaternion& q );
 	quaternion operator+(const quaternion& q);
 	quaternion operator-(const quaternion& q);
+	//Quaternion multiplication, non-commutative
 	quaternion operator*(const quaternion& q);	
 	quaternion operator*(const double& val);	
-	quaternion operator/(const double& val);	
-	double dotProduct(const quaternion& q );
+	quaternion operator/(const double& val);
+	// doent exist	
+	//double dotProduct(const quaternion& q );
 	
 	//Math functions
 	double norm(void);
 	quaternion conjugate(void);
 	quaternion inverse(void);
 	quaternion pow(const double& x);
-	//friend quaternion exp(const quaternion& q);
-	//friend quaternion log(const quaternion& q);
+
+	//only normalises vector component and returns it
+	vector<double,3> normalise();
+	//will add when I require it
+	//quaternion exp(const quaternion& q);
+	//quaternion log(const quaternion& q);
 		
 
 };
