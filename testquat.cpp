@@ -90,7 +90,8 @@ int main(void){
     q[2].print();
 
     //test getTilt
-
+    v.set(1,0,1);
+    q[2].setNormal(0,v);
     q[3] = getTilt(q[2]);
 
     q[3].print();
