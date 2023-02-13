@@ -18,7 +18,7 @@ mpu6050::mpu6050(){
 
 
     /* reset the sensor */
-    i2c.write_byte_data(i2c, MPU6050_RESET, MPU6050_REG_PWR_MGMT_1);
+    i2c.writeByte(i2c, MPU6050_RESET, MPU6050_REG_PWR_MGMT_1);
 
 
     sleep(1);
@@ -27,7 +27,7 @@ mpu6050::mpu6050(){
     data |= MPU6050_PLL_GYRO_X;
     data &= ~(MPU6050_SLEEP);
 
-    i2c.write_byte_data(i2c, data, MPU6050_REG_PWR_MGMT_1);
+    i2c.writeByte(i2c, data, MPU6050_REG_PWR_MGMT_1);
 
     sleep(1);
 
