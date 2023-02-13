@@ -160,3 +160,12 @@ template <typename T , unsigned len> vector<T,len> vector<T,len>::operator/(T nu
 	return a; 
 }
 
+template <typename T , unsigned len> void vector<T,len>::print(void){
+
+	uint32_t i = 0;
+
+	for (;i< this->length;++i){
+		cout<<i<<":"<<vec[i]<<endl;
+	}
+}
+

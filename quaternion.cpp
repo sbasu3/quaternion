@@ -87,14 +87,14 @@ quaternion quaternion::getPolar(void){
 		quaternion q;
 		//mag = sqrt(w*w + v.dotProduct(v));
 		q.mag = this->norm();
-		q.phi = std::acos(w/q.mag);
+		q.phi = acos(w/q.mag);
 
-		if(phi != 0)
-			q.n = v/(q.mag*std::sin(phi));
-		else
+		if(q.phi){
+			q.n = v/(q.mag*sin(q.phi));
+		}else{
 			q.n.set(0,0,0);
-
-		form = POLAR;
+		}
+		q.form = POLAR;
 
 		return q; 
 
@@ -319,7 +319,22 @@ vector<double,3> quaternion::normalise(void){
     return Qr*q0*Qr.conjugate();
 }
 
+void quaternion::print(){
 
+	//double *u;
+
+	cout<<"form:"<<form<<endl;
+
+	if(form==NORMAL){
+		//u = v.get();
+		cout<<"s:"<<w<<endl;
+		v.print();
+	}else{
+		//u = n.get();
+		cout<<"mag:"<<mag<<"phi:"<<phi<<endl;
+		n.print();
+	}
+}
 
 
 

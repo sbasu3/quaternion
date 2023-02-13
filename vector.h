@@ -7,6 +7,9 @@
 #include <stdint.h>
 #include <cassert>
 #include <cmath>
+#include<iostream>
+
+using namespace std;
 
 template<typename T,unsigned len> class vector{
 // len = 3 is default, kept for scaling later on
@@ -32,4 +35,6 @@ public:
 
 	T dotProduct(const vector<T,len>& v );
 	T norm(void);
+
+	void print(void);
 }; 

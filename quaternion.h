@@ -4,7 +4,7 @@
 // License : MIT License
 // Creation Date : 2 July 2022
 /////////////////////////////////////////////////////
-
+#include<iostream>
 #include "vector.cpp"
 
 enum QuatType { NORMAL = 0 , POLAR = 1};
@@ -61,6 +61,8 @@ public:
 	//friend quaternion exp(const quaternion& q);
 	//friend quaternion log(const quaternion& q);
 	quaternion rotateBy(quaternion Qr);
+
+	void print(void);
 	//friend quaternion rotateBy(quaternion Qr);
     friend quaternion getTilt();
     // omega are the gryo values
