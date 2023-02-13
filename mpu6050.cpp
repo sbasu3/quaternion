@@ -11,45 +11,23 @@
 
 mpu6050::mpu6050(){
     /* initialize mraa for the platform (not needed most of the times) */
-    mraa_init();
-
-    //! [Interesting]
-    /* initialize I2C bus */
-    i2c = mraa_i2c_init(I2C_BUS);
-    if (i2c == NULL) {
-        fprintf(stderr, "Failed to initialize I2C\n");
-        mraa_deinit();
-        //return EXIT_FAILURE;
-    }
+    mraa::I2c i2c(I2C_BUS);
 
     /* set slave address */
-    status = mraa_i2c_address(i2c, MPU6050_ADDR);
-    if (status != MRAA_SUCCESS) {
-        //goto err_exit;
-    }
+   i2c.address(MPU6050_ADDR);
+
 
     /* reset the sensor */
-    status = mraa_i2c_write_byte_data(i2c, MPU6050_RESET, MPU6050_REG_PWR_MGMT_1);
-    if (status != MRAA_SUCCESS) {
-        //goto err_exit;
-    }
+    i2c.write_byte_data(i2c, MPU6050_RESET, MPU6050_REG_PWR_MGMT_1);
+
 
     sleep(1);
-
-    /* configure power management register */
-    ret = mraa_i2c_read_byte_data(i2c, MPU6050_REG_PWR_MGMT_1);
-    if (ret == -1) {
-        //return EXIT_FAILURE;
-    }
 
     data = ret;
     data |= MPU6050_PLL_GYRO_X;
     data &= ~(MPU6050_SLEEP);
 
-    status = mraa_i2c_write_byte_data(i2c, data, MPU6050_REG_PWR_MGMT_1);
-    if (status != MRAA_SUCCESS) {
-        //goto err_exit;
-    }
+    i2c.write_byte_data(i2c, data, MPU6050_REG_PWR_MGMT_1);
 
     sleep(1);
 
@@ -58,29 +36,22 @@ mpu6050::mpu6050(){
 
 mpu6050::~mpu6050(){
 
-    /* stop i2c */
-    mraa_i2c_stop(i2c);
-
-    //! [Interesting]
-    /* deinitialize mraa for the platform (not needed most of the times) */
-    mraa_deinit();
-
-
 }
+
 void mpu6050::read(){
     //double val[3];
     int raw[3];
 
-    raw[0] =  i2c_read_word(i2c, MPU6050_REG_RAW_ACCEL_X);
-    raw[1] =  i2c_read_word(i2c, MPU6050_REG_RAW_ACCEL_Y);
-    raw[2] =  i2c_read_word(i2c, MPU6050_REG_RAW_ACCEL_Z);
+    raw[0] =  i2c.read_word(i2c, MPU6050_REG_RAW_ACCEL_X);
+    raw[1] =  i2c.read_word(i2c, MPU6050_REG_RAW_ACCEL_Y);
+    raw[2] =  i2c.read_word(i2c, MPU6050_REG_RAW_ACCEL_Z);
 
     raw_accl.set(raw[0],raw[1],raw[2]);
     accl =  (raw_accl/(MPU6050_ACCEL_SCALE));
 
-    raw[0] =  i2c_read_word(i2c, MPU6050_REG_RAW_GYRO_X);
-    raw[1] =  i2c_read_word(i2c, MPU6050_REG_RAW_GYRO_Y);
-    raw[2] =  i2c_read_word(i2c, MPU6050_REG_RAW_GYRO_Z);
+    raw[0] =  i2c.read_word(i2c, MPU6050_REG_RAW_GYRO_X);
+    raw[1] =  i2c.read_word(i2c, MPU6050_REG_RAW_GYRO_Y);
+    raw[2] =  i2c.read_word(i2c, MPU6050_REG_RAW_GYRO_Z);
 
     raw_gyro.set(raw[0],raw[1],raw[2]);
     gyro = (raw_gyro/(MPU6050_GYRO_SCALE));

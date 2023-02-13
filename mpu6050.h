@@ -10,17 +10,16 @@
 #include "vector.h"
 
 
-extern "C"{
-
-#include "mraa/i2c.h"
-
-#include <stdio.h>
-#include <unistd.h>
-#include <errno.h>
+/* standard headers */
+#include <iostream>
+#include <math.h>
 #include <signal.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-}
+/* mraa headers */
+#include "mraa/common.hpp"
+#include "mraa/i2c.hpp"
 
 
 #define I2C_BUS 0
