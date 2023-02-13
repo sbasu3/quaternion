@@ -11,10 +11,11 @@
 
 mpu6050::mpu6050(){
     /* initialize mraa for the platform (not needed most of the times) */
-    mraa::I2c i2c_1(I2C_BUS);
+    //mraa::I2c i2c_1(I2C_BUS);
 
-    i2c = i2c_1;
-
+    //i2c = i2c_1;
+    i2c.init();
+    
     /* set slave address */
     i2c.address(MPU6050_ADDR);
 
