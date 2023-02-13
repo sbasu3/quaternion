@@ -24,7 +24,7 @@ mpu6050::mpu6050(){
 
     sleep(1);
 
-    data = ret;
+    uint8_t data = 0;
     data |= MPU6050_PLL_GYRO_X;
     data &= ~(MPU6050_SLEEP);
 
