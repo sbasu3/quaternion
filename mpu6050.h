@@ -7,7 +7,6 @@
 
 
 /* mraa header */
-#include "mraa/i2c.h"
 #include "vector.h"
 
 #define I2C_BUS 0

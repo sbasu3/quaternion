@@ -6,6 +6,7 @@
 /////////////////////////////////////////////////////
 
 #include "mpu6050.h"
+#include "mraa/i2c.h"
 
 #include <stdio.h>
 #include <unistd.h>
