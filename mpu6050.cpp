@@ -6,6 +6,11 @@
 /////////////////////////////////////////////////////
 
 #include "mpu6050.h"
+
+#ifdef __cplusplus
+extern "C"{
+#endif 
+
 #include "mraa/i2c.h"
 
 #include <stdio.h>
@@ -13,6 +18,10 @@
 #include <errno.h>
 #include <signal.h>
 #include <stdlib.h>
+
+#ifdef __cplusplus
+}
+#endif
 
 mpu6050::mpu6050(){
     /* initialize mraa for the platform (not needed most of the times) */
