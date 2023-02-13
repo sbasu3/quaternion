@@ -9,9 +9,11 @@
 
 enum QuatType { NORMAL = 0 , POLAR = 1};
 
+using namespace std;
+
 class quaternion{
 
-private:
+protected:
 	
 	QuatType form;
 	//simple form
@@ -54,7 +56,7 @@ public:
 	quaternion pow(const double& x);
 
 	//only normalises vector component and returns it
-	vector<double,3> normalise();
+	vector<double,3> normalise(void);
 	//will add when I require it
 	//friend quaternion exp(const quaternion& q);
 	//friend quaternion log(const quaternion& q);
@@ -64,10 +66,10 @@ public:
     // omega are the gryo values
     // deltaT is the elapsed time since last
     friend quaternion getQDelta(double deltaT, vector<double,3> omega);
-    friend quaternion getTilt(quaternion q);
+    friend quaternion getTilt(const quaternion& q);
     //apply complementary filter on acc and gyro values
     // alpha between 0 and 1
-    friend quaternion getQCorrected(quaternion QTilt,quaternion Qgyro,double alpha);
+    friend quaternion getQCorrected(const quaternion& QTilt,const quaternion& Qgyro,double alpha);
     friend quaternion getNextQ(const quaternion& Qt, const vector<double,3>& a, const vector<double,3>& omega,double deltaT);	
 
 };

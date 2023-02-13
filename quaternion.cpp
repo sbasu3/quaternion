@@ -297,7 +297,7 @@ quaternion quaternion::pow(const double& x){
 	return q0;
 
 }
-vector<double,3> quaternion::normalise(){
+vector<double,3> quaternion::normalise(void){
 
 	vector<double,3> x;
 

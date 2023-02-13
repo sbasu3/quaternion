@@ -29,6 +29,7 @@ public:
 	vector<T,len> operator*(const vector<T,len>& v);	// Cross product
 	vector<T,len> operator*(const T num);				//multiplication by scalar
 	vector<T,len> operator/(T num);
+
 	T dotProduct(const vector<T,len>& v );
 	T norm(void);
 }; 

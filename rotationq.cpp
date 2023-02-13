@@ -7,7 +7,7 @@
 
 #include "quaternion.h"
 
-
+using namespace std;
 
  quaternion getQDelta(double deltaT, vector<double, 3> omega)
 {
@@ -31,17 +31,19 @@
     return qAlpha*Qgyro;
 }
 
- quaternion getTilt(quaternion q){
+ quaternion getTilt(const quaternion& q){
 
-    quaternion q0;
+    quaternion q0 = q;
 
-    vector<double,3> u = q.normalise();
+    vector<double,3> u = q0.normalise();
 
-    double den = sqrt(u.vec[0]*u.vec[0] + u.vec[2]*u.vec[2]);
+    double *v = u.get();
+
+    double den = sqrt(v[0]*v[0] + v[2]*v[2]);
 
     q0.mag = 1;
-    q0.phi = acos(u.vec[1]);
-    q0.n.set(-u.vec[2]/den, 0, u.vec[0]/den);
+    q0.phi = acos(v[1]);
+    q0.n.set(-v[2]/den, 0, v[0]/den);
 
     return q0;
     
@@ -49,9 +51,10 @@
 
  quaternion getNextQ(const quaternion& Qt, const vector<double,3>& a, const vector<double,3>& omega,double deltaT){
 
+    quaternion qt = Qt;
     quaternion Qdelta = getQDelta(deltaT,omega);
 
-    quaternion Qgyro = Qt*Qdelta;
+    quaternion Qgyro = qt*Qdelta;
 
     return Qgyro;
 
