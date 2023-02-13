@@ -66,4 +66,4 @@ class mpu6050{
         void read();
         vector<double,3> getA(void);
         vector<double,3> getW(void);
-}
+};
