@@ -9,9 +9,8 @@
 /* mraa header */
 #include "vector.h"
 
-#ifdef __cplusplus
+
 extern "C"{
-#endif 
 
 #include "mraa/i2c.h"
 
@@ -21,9 +20,8 @@ extern "C"{
 #include <signal.h>
 #include <stdlib.h>
 
-#ifdef __cplusplus
 }
-#endif
+
 
 #define I2C_BUS 0
 
