@@ -14,11 +14,12 @@ mpu6050::mpu6050(){
     mraa::I2c i2c(I2C_BUS);
 
     /* set slave address */
-   i2c.address(MPU6050_ADDR);
+    i2c.address(MPU6050_ADDR);
 
-
+    buff[0] = MPU6050_RESET;
+    buff[1] = MPU6050_REG_PWR_MGMT_1;
     /* reset the sensor */
-    i2c.writeByte(i2c, MPU6050_RESET, MPU6050_REG_PWR_MGMT_1);
+    i2c.write(buff,2);
 
 
     sleep(1);
@@ -27,7 +28,10 @@ mpu6050::mpu6050(){
     data |= MPU6050_PLL_GYRO_X;
     data &= ~(MPU6050_SLEEP);
 
-    i2c.writeByte(i2c, data, MPU6050_REG_PWR_MGMT_1);
+    buff[0] = data;
+    buff[1] = MPU6050_REG_PWR_MGMT_1;
+
+    i2c.write(buff,2);
 
     sleep(1);
 
@@ -42,16 +46,32 @@ void mpu6050::read(){
     //double val[3];
     int raw[3];
 
-    raw[0] =  i2c.read_word(i2c, MPU6050_REG_RAW_ACCEL_X);
-    raw[1] =  i2c.read_word(i2c, MPU6050_REG_RAW_ACCEL_Y);
-    raw[2] =  i2c.read_word(i2c, MPU6050_REG_RAW_ACCEL_Z);
+    i2c.writeByte(MPU6050_REG_RAW_ACCEL_X);
+    i2c.read(buff,2);
+    raw[0] = (buff[1]<<8 | buff[0]);
+
+    i2c.writeByte(MPU6050_REG_RAW_ACCEL_Y);
+    i2c.read(buff,2);
+    raw[1] = (buff[1]<<8 | buff[0]);
+
+    i2c.writeByte(MPU6050_REG_RAW_ACCEL_Z);
+    i2c.read(buff,2);
+    raw[2] = (buff[1]<<8 | buff[0]);
 
     raw_accl.set(raw[0],raw[1],raw[2]);
     accl =  (raw_accl/(MPU6050_ACCEL_SCALE));
 
-    raw[0] =  i2c.read_word(i2c, MPU6050_REG_RAW_GYRO_X);
-    raw[1] =  i2c.read_word(i2c, MPU6050_REG_RAW_GYRO_Y);
-    raw[2] =  i2c.read_word(i2c, MPU6050_REG_RAW_GYRO_Z);
+    i2c.writeByte(MPU6050_REG_RAW_GYRO_X);
+    i2c.read(buff,2);
+    raw[0] = (buff[1]<<8 | buff[0]);
+
+    i2c.writeByte(MPU6050_REG_RAW_GYRO_Y);
+    i2c.read(buff,2);
+    raw[1] = (buff[1]<<8 | buff[0]);
+
+    i2c.writeByte(MPU6050_REG_RAW_GYRO_Z);
+    i2c.read(buff,2);
+    raw[2] = (buff[1]<<8 | buff[0]);
 
     raw_gyro.set(raw[0],raw[1],raw[2]);
     gyro = (raw_gyro/(MPU6050_GYRO_SCALE));

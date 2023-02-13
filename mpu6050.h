@@ -53,10 +53,7 @@ class mpu6050{
         //scaled values 
         vector<double,3> accl;
         vector<double,3> gyro;
-        mraa_result_t status;
-        mraa_i2c_context i2c;
-        uint8_t data;
-        int ret;
+        uint8_t buff[2];
     public:
         mpu6050();
         ~mpu6050();
