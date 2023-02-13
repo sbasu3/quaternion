@@ -76,14 +76,14 @@ void mpu6050::read(){
     raw[2] =  i2c_read_word(i2c, MPU6050_REG_RAW_ACCEL_Z);
 
     raw_accl.set(raw[0],raw[1],raw[2]);
-    accl = (double) raw_accl/(MPU6050_ACCEL_SCALE);
+    accl = (double) (raw_accl/(MPU6050_ACCEL_SCALE));
 
     raw[0] =  i2c_read_word(i2c, MPU6050_REG_RAW_GYRO_X);
     raw[1] =  i2c_read_word(i2c, MPU6050_REG_RAW_GYRO_Y);
     raw[2] =  i2c_read_word(i2c, MPU6050_REG_RAW_GYRO_Z);
 
     raw_gyro.set(raw[0],raw[1],raw[2]);
-    gyro = (double) raw_gyro/(MPU6050_GYRO_SCALE);
+    gyro = (double) (raw_gyro/(MPU6050_GYRO_SCALE));
     
 }
 vector<double,3> mpu6050::getA(void){
