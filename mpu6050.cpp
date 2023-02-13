@@ -7,6 +7,12 @@
 
 #include "mpu6050.h"
 
+#include <stdio.h>
+#include <unistd.h>
+#include <errno.h>
+#include <signal.h>
+#include <stdlib.h>
+
 mpu6050::mpu6050(){
     /* initialize mraa for the platform (not needed most of the times) */
     mraa_init();

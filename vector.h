@@ -4,6 +4,9 @@
 // License : MIT License
 // Creation Date : 1 July 2022
 /////////////////////////////////////////////////////
+#ifdef __VECTOR
+#define __VECTOR
+
 #include <stdint.h>
 #include <cassert>
 #include <cmath>
@@ -39,3 +42,5 @@ public:
 
 	void print(void);
 }; 
+
+#endif
