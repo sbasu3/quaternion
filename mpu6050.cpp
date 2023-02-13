@@ -68,21 +68,22 @@ mpu6050::~mpu6050(){
 
 }
 void mpu6050::read(){
-    double val[3];
+    //double val[3];
+    int raw[3];
 
-    val[0] =  i2c_read_word(i2c, MPU6050_REG_RAW_ACCEL_X);
-    val[1] =  i2c_read_word(i2c, MPU6050_REG_RAW_ACCEL_Y);
-    val[2] =  i2c_read_word(i2c, MPU6050_REG_RAW_ACCEL_Z);
+    raw[0] =  i2c_read_word(i2c, MPU6050_REG_RAW_ACCEL_X);
+    raw[1] =  i2c_read_word(i2c, MPU6050_REG_RAW_ACCEL_Y);
+    raw[2] =  i2c_read_word(i2c, MPU6050_REG_RAW_ACCEL_Z);
 
-    raw_accl.set(val[0],val[1],val[2]);
-    accl = raw_accl/(MPU6050_ACCEL_SCALE);
+    raw_accl.set(raw[0],raw[1],raw[2]);
+    accl = (double) raw_accl/(MPU6050_ACCEL_SCALE);
 
-    val[0] =  i2c_read_word(i2c, MPU6050_REG_RAW_GYRO_X);
-    val[1] =  i2c_read_word(i2c, MPU6050_REG_RAW_GYRO_Y);
-    val[2] =  i2c_read_word(i2c, MPU6050_REG_RAW_GYRO_Z);
+    raw[0] =  i2c_read_word(i2c, MPU6050_REG_RAW_GYRO_X);
+    raw[1] =  i2c_read_word(i2c, MPU6050_REG_RAW_GYRO_Y);
+    raw[2] =  i2c_read_word(i2c, MPU6050_REG_RAW_GYRO_Z);
 
-    raw_gyro.set(val[0],val[1],val[2]);
-    gyro = raw_gyro/(MPU6050_GYRO_SCALE);
+    raw_gyro.set(raw[0],raw[1],raw[2]);
+    gyro = (double) raw_gyro/(MPU6050_GYRO_SCALE);
     
 }
 vector<double,3> mpu6050::getA(void){
