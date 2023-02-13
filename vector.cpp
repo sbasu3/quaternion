@@ -149,7 +149,7 @@ template <typename T , unsigned len> vector<T,len> vector<T,len>::operator*(cons
 	a.length = length;
 	return a; 
 }
-template <typename T , unsigned len> vector<T,len> vector<T,len>::operator/(T num){
+template <typename T , unsigned len> vector<double,len> vector<T,len>::operator/(T num){
 	vector<T,len> a;
 	uint32_t i;
 	assert( num != 0 );
