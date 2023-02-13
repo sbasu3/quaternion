@@ -23,19 +23,19 @@ mpu6050::mpu6050(){
     if (i2c == NULL) {
         fprintf(stderr, "Failed to initialize I2C\n");
         mraa_deinit();
-        return EXIT_FAILURE;
+        //return EXIT_FAILURE;
     }
 
     /* set slave address */
     status = mraa_i2c_address(i2c, MPU6050_ADDR);
     if (status != MRAA_SUCCESS) {
-        goto err_exit;
+        //goto err_exit;
     }
 
     /* reset the sensor */
     status = mraa_i2c_write_byte_data(i2c, MPU6050_RESET, MPU6050_REG_PWR_MGMT_1);
     if (status != MRAA_SUCCESS) {
-        goto err_exit;
+        //goto err_exit;
     }
 
     sleep(1);
@@ -43,7 +43,7 @@ mpu6050::mpu6050(){
     /* configure power management register */
     ret = mraa_i2c_read_byte_data(i2c, MPU6050_REG_PWR_MGMT_1);
     if (ret == -1) {
-        return EXIT_FAILURE;
+        //return EXIT_FAILURE;
     }
 
     data = ret;
@@ -52,7 +52,7 @@ mpu6050::mpu6050(){
 
     status = mraa_i2c_write_byte_data(i2c, data, MPU6050_REG_PWR_MGMT_1);
     if (status != MRAA_SUCCESS) {
-        goto err_exit;
+        //goto err_exit;
     }
 
     sleep(1);
