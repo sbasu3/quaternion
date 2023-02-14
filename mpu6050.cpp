@@ -26,7 +26,7 @@ mpu6050::mpu6050(){
     i2c->write(buff,2);
 
 
-    sleep(1);
+    sleep(5);
 
     uint8_t data = 0;
     data |= MPU6050_PLL_GYRO_X;
@@ -37,7 +37,7 @@ mpu6050::mpu6050(){
 
     i2c->write(buff,2);
 
-    sleep(1);
+    sleep(5);
 
 
 }
