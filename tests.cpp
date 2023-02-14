@@ -1,11 +1,11 @@
 #include<iostream>
 #include "vector.cpp"
 
-//template class vector<float,3>;
+//template class vector<double,3>;
 
 using namespace std;
 
-void compare(vector<float,3> a , vector<float,3> c){
+void compare(vector<double,3> a , vector<double,3> c){
 
 	if( c == a)
 		cout<<"equal\n";
@@ -15,9 +15,9 @@ void compare(vector<float,3> a , vector<float,3> c){
 
 int main (void){
 
-	vector<float , 3 > a;
-	vector<float , 3 > b(1,1,1);
-	vector<float , 3 > c(a);
+	vector<double , 3 > a;
+	vector<double , 3 > b(1,1,1);
+	vector<double , 3 > c(a);
 
 
 	compare(a , c);
@@ -31,8 +31,8 @@ int main (void){
 	b.set(0,1,0);
 	c.set(0,0,1);
 
-	vector<float,3> d = a + b;
-	vector<float,3> e = b + c;
+	vector<double,3> d = a + b;
+	vector<double,3> e = b + c;
 
 	cout<<"dot product : "<<d.dotProduct(e)<<endl;	
 	a = d*e;

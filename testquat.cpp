@@ -104,7 +104,7 @@ int main(void){
     //imu test
     mpu6050 imu;
     clock_t start,end;
-    uint32_t delay = 20;        //50Hz
+    clock_t delay = 20;        //50Hz
 
     v.set(0,0,0);
     q0.setNormal(1,v);
