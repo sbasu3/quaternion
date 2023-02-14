@@ -22,7 +22,7 @@
 #include "mraa/i2c.hpp"
 
 
-//#define I2C_BUS 0
+#define I2C_BUS 0
 
 /* register definitions */
 #define MPU6050_ADDR 0x68
@@ -48,13 +48,13 @@
 class mpu6050{
     private:
         //raw values from sensor
-        vector<int,3> raw_accl;
-        vector<int,3> raw_gyro;
+        vector<double,3> raw_accl;
+        vector<double,3> raw_gyro;
         //scaled values 
         vector<double,3> accl;
         vector<double,3> gyro;
         uint8_t buff[2];
-        mraa::I2c i2c(0);
+        mraa::I2c *i2c;
     public:
         mpu6050();
         ~mpu6050();
