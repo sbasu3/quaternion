@@ -54,7 +54,7 @@ class mpu6050{
         vector<double,3> accl;
         vector<double,3> gyro;
         uint8_t buff[2];
-         mraa::I2c i2c(I2C_BUS);
+        mraa::I2c i2c(I2C_BUS);
     public:
         mpu6050();
         ~mpu6050();
