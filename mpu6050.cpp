@@ -20,8 +20,8 @@ mpu6050::mpu6050(){
     /* set slave address */
     i2c->address(MPU6050_ADDR);
 
-    buff[0] = MPU6050_RESET;
-    buff[1] = MPU6050_REG_PWR_MGMT_1;
+    buff[1] = MPU6050_RESET;
+    buff[0] = MPU6050_REG_PWR_MGMT_1;
     /* reset the sensor */
     i2c->write(buff,2);
 
@@ -33,8 +33,8 @@ mpu6050::mpu6050(){
     data |= MPU6050_PLL_GYRO_X;
     data &= ~(MPU6050_SLEEP);
     i2c->address(MPU6050_ADDR);
-    buff[0] = data;
-    buff[1] = MPU6050_REG_PWR_MGMT_1;
+    buff[1] = data;
+    buff[0] = MPU6050_REG_PWR_MGMT_1;
 
     i2c->write(buff,2);
 
