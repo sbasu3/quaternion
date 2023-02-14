@@ -113,14 +113,17 @@ int main(void){
 
     while(1){
         start = clock();
+        cout<<start;
         imu.read();
         //process
         q[1] = getNextQ(q[0],imu.getA(),imu.getW(),delay);
         q[1].print();
         q[0] = q[1];
         end = clock();
-        while(end-start< delay)
+        cout<<end;
+        while((end - start) < delay)
             end = clock();
+        cout<<end;
     }
 }
 
