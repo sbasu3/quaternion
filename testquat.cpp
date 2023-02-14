@@ -6,6 +6,8 @@
 /////////////////////////////////////////////////////
 
 #include "quaternion.h"
+#include "mpu6050.h"
+#include <time.h>
 
 int main(void){
 
@@ -99,5 +101,26 @@ int main(void){
     q[2].rotateBy(q[3]);
 
     q[2].print();
+    //imu test
+    mpu6050 imu;
+    clock_t start,end;
+    uint32_t delay = 20;        //50Hz
+
+    v.set(0,0,0);
+    q0.setNormal(1,v);
+    
+    q[0] = q0;
+
+    while(1){
+        start = clock();
+        imu.read();
+        //process
+        q[1] = getNextQ(q[0],imu.getA(),imu.getW(),delay);
+        q[1].print();
+        q[0] = q[1];
+        end = clock();
+        while(end-start< delay)
+            end = clock();
+    }
 }
 
