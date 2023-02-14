@@ -18,6 +18,8 @@ int main(void){
     v.set(0,1,0);
     quaternion q1(0,v);
 
+
+/*
     //test Multiplication operator and assignment
     q[0] = q0*q1;
 
@@ -101,6 +103,9 @@ int main(void){
     q[2].rotateBy(q[3]);
 
     q[2].print();
+
+    */
+   
     //imu test
     mpu6050 imu;
     clock_t start,end;
