@@ -22,7 +22,7 @@
 #include "mraa/i2c.hpp"
 
 
-#define I2C_BUS 0
+//#define I2C_BUS 0
 
 /* register definitions */
 #define MPU6050_ADDR 0x68
@@ -54,7 +54,7 @@ class mpu6050{
         vector<double,3> accl;
         vector<double,3> gyro;
         uint8_t buff[2];
-        mraa::I2c i2c(I2C_BUS);
+        mraa::I2c i2c(0);
     public:
         mpu6050();
         ~mpu6050();
