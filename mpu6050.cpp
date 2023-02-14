@@ -28,7 +28,8 @@ mpu6050::mpu6050(){
 
     sleep(5);
 
-    uint8_t data = 0;
+    
+    uint8_t data = i2c->readReg(MPU6050_REG_PWR_MGMT_1);
     data |= MPU6050_PLL_GYRO_X;
     data &= ~(MPU6050_SLEEP);
     i2c->address(MPU6050_ADDR);
@@ -47,46 +48,48 @@ mpu6050::~mpu6050(){
 }
 
 void mpu6050::read(){
-    //double val[3];
+    int16_t val[3];
     int raw[3];
     i2c->address(MPU6050_ADDR);
-    i2c->writeByte(MPU6050_REG_RAW_ACCEL_X);
-    i2c->address(MPU6050_ADDR);
-    i2c->read(buff,2);
-    raw[0] = (buff[1]<<8 | buff[0]);
+    val[0] = i2c->readWordReg(MPU6050_REG_RAW_ACCEL_X);
+    //i2c->address(MPU6050_ADDR);
+    //i2c->read(buff,2);
+    raw[0] = (int) val[0];
 
     i2c->address(MPU6050_ADDR);
-    i2c->writeByte(MPU6050_REG_RAW_ACCEL_Y);
-    i2c->address(MPU6050_ADDR);
-    i2c->read(buff,2);
-    raw[1] = (buff[1]<<8 | buff[0]);
+    val[1] = i2c->readWordReg(MPU6050_REG_RAW_ACCEL_Y);
+    //i2c->address(MPU6050_ADDR);
+    //i2c->read(buff,2);
+    raw[1] = (int) val[1];
 
     i2c->address(MPU6050_ADDR);
-    i2c->writeByte(MPU6050_REG_RAW_ACCEL_Z);
-    i2c->address(MPU6050_ADDR);
-    i2c->read(buff,2);
-    raw[2] = (buff[1]<<8 | buff[0]);
+    val[2] = i2c->readWordReg(MPU6050_REG_RAW_ACCEL_Z);
+    //i2c->address(MPU6050_ADDR);
+    //i2c->read(buff,2);
+    raw[2] = (int) val[2];
+
 
     raw_accl.set(raw[0],raw[1],raw[2]);
     accl =  (raw_accl/(MPU6050_ACCEL_SCALE));
 
     i2c->address(MPU6050_ADDR);
-    i2c->writeByte(MPU6050_REG_RAW_GYRO_X);
-    i2c->address(MPU6050_ADDR);
-    i2c->read(buff,2);
-    raw[0] = (buff[1]<<8 | buff[0]);
+    val[0] = i2c->readWordReg(MPU6050_REG_RAW_GYRO_X);
+    //i2c->address(MPU6050_ADDR);
+    //i2c->read(buff,2);
+    raw[0] = (int) val[0];
+
 
     i2c->address(MPU6050_ADDR);
-    i2c->writeByte(MPU6050_REG_RAW_GYRO_Y);
-    i2c->address(MPU6050_ADDR);
-    i2c->read(buff,2);
-    raw[1] = (buff[1]<<8 | buff[0]);
+    val[1] = i2c->readWordReg(MPU6050_REG_RAW_GYRO_Y);
+    //i2c->address(MPU6050_ADDR);
+    //i2c->read(buff,2);
+    raw[1] = (int) val[1];
 
     i2c->address(MPU6050_ADDR);
-    i2c->writeByte(MPU6050_REG_RAW_GYRO_Z);
-    i2c->address(MPU6050_ADDR);
-    i2c->read(buff,2);
-    raw[2] = (buff[1]<<8 | buff[0]);
+    val[2] = i2c->readWordReg(MPU6050_REG_RAW_GYRO_Z);
+    //i2c->address(MPU6050_ADDR);
+    //i2c->read(buff,2);
+    raw[2] = (int) val[2];
 
     raw_gyro.set(raw[0],raw[1],raw[2]);
     gyro = (raw_gyro/(MPU6050_GYRO_SCALE));
