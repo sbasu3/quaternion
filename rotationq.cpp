@@ -53,22 +53,31 @@ using namespace std;
 
     quaternion qt = Qt;
     quaternion Qdelta = getQDelta(deltaT,omega);
+    
+    qt.print();
+    Qdelta.print();
 
     quaternion Qgyro = qt*Qdelta;
+    Qgyro.print();
 
     quaternion Qbody,Qtilt;
 
     Qbody.setNormal(0,a);
 
     Qtilt = getTilt(Qbody);
+    Qtilt.print();
 
     quaternion Qcorr = getQCorrected(Qtilt,Qgyro,0.8);
 
+    Qcorr.print();
+
     quaternion q0 = Qcorr.rotateBy(Qgyro);
 
-    q0.rotateBy(Qtilt);
+    quaternion q1 = q0.rotateBy(Qtilt);
 
-    return Qgyro;
+    q1.print();
+
+    return q1;
 
 }
 

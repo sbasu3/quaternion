@@ -78,7 +78,7 @@ int main() {
 
         std::cout << "----------------------" << std::endl;
         //usleep(200000);
-        sleep(5);
+        usleep(delay*1000);
     }
 
     free(accels);
