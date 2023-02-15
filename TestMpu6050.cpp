@@ -51,32 +51,34 @@ int main() {
         //std::cout << "MPU6050" << std::endl;
 
         start = clock();
-        cout<<start;
+        //cout<<start;
 
         mpu6050->getAccelerations(accels);
         v.set((double) accels[0] / k , (double) accels[1] / k, (double) accels[2] / k );
+        v.print();
 
         mpu6050->getAngularVelocities(gyros);
         u.set((double) gyros[0] / k , (double) gyros[1] / k, (double) gyros[2] / k );
-
+        u.print();
 
 
 
 
 
             //process
-            q[1] = getNextQ(q[0],v,u,delay);
+            q[1] = getNextQ(q[0],v,u,delay/1000);
             q[1].print();
             q[0] = q[1];
             end = clock();
-            cout<<end;
+            //cout<<end;
             while((end - start) < delay)
                 end = clock();
-            cout<<end;
+            //cout<<end;
 
 
         std::cout << "----------------------" << std::endl;
-        usleep(200000);
+        //usleep(200000);
+        sleep(5);
     }
 
     free(accels);
