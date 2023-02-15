@@ -19,6 +19,8 @@ using namespace std;
     r.phi = deltaT*omegaMag;
     r.n = omega/omegaMag;
 
+    r.form = POLAR;
+
     return r;
 }
 
@@ -53,7 +55,7 @@ using namespace std;
 
     quaternion qt = Qt;
     quaternion Qdelta = getQDelta(deltaT,omega);
-    
+
     qt.print();
     Qdelta.print();
 
