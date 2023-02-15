@@ -39,7 +39,7 @@ int main() {
     int16_t *gyros = (int16_t *) calloc(3, sizeof(int16_t));
     vector<double,3> v,u;
 
-    quaternion<double,3> q[4];
+    quaternion q[4];
 
     clock_t start,end;
     clock_t delay = (clock_t) 20;        //50Hz
