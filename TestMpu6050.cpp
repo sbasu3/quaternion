@@ -34,7 +34,7 @@ int main() {
     MPU6050 *mpu6050 = new MPU6050(i2c);
     mpu6050->initialize();
 
-    float k = 16384;
+    double k = 16384;
     int16_t *accels = (int16_t *) calloc(3, sizeof(int16_t));
     int16_t *gyros = (int16_t *) calloc(3, sizeof(int16_t));
     vector<double,3> v,u;
