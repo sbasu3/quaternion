@@ -47,6 +47,8 @@ using namespace std;
     q0.phi = acos(v[1]);
     q0.n.set(-v[2]/den, 0, v[0]/den);
 
+    q0.form = POLAR;
+
     return q0;
     
 }
