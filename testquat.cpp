@@ -18,7 +18,7 @@ int main(void){
     quaternion q1(0,v);
 
 
-/*
+
     //test Multiplication operator and assignment
     q[0] = q0*q1;
 
@@ -103,31 +103,6 @@ int main(void){
 
     q[2].print();
 
-    */
 
-    //imu test
-
-    clock_t start,end;
-    clock_t delay = (clock_t) 20;        //50Hz
-
-    v.set(0,0,0);
-    q0.setNormal(1,v);
-    
-    q[0] = q0;
-
-    while(1){
-        start = clock();
-        cout<<start;
-        imu.read();
-        //process
-        q[1] = getNextQ(q[0],imu.getA(),imu.getW(),delay);
-        q[1].print();
-        q[0] = q[1];
-        end = clock();
-        cout<<end;
-        while((end - start) < delay)
-            end = clock();
-        cout<<end;
-    }
 }
 

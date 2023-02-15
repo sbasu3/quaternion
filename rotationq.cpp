@@ -56,6 +56,18 @@ using namespace std;
 
     quaternion Qgyro = qt*Qdelta;
 
+    quaternion Qbody,Qtilt;
+
+    Qbody.setNormal(0,a);
+
+    Qtilt = getTilt(Qbody);
+
+    quaternion Qcorr = getQCorrected(Qtilt,Qgyro,0.8);
+
+    quaternion q0 = Qcorr.rotateBy(Qgyro);
+
+    q0.rotateBy(Qtilt);
+
     return Qgyro;
 
 }
