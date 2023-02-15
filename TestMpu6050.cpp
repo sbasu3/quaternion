@@ -42,7 +42,7 @@ int main() {
     quaternion q[4];
 
     clock_t start,end;
-    clock_t delay = (clock_t) 20;        //50Hz
+    clock_t delay = (clock_t) 20;        //in millisecond
 
     v.set(0,0,0);
     q[0].setNormal(1,v);
@@ -66,7 +66,7 @@ int main() {
 
 
             //process
-            q[1] = getNextQ(q[0],v,u,delay/1000);
+            q[1] = getNextQ(q[0],v,u,((double)(delay))/1000);
             //q[1].print();
             q[0] = q[1];
             end = clock();
