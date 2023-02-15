@@ -28,7 +28,7 @@ int main() {
     ctrl = 1;
     signal(SIGINT, signal_handler);
 
-    I2cPort *i2c = new I2cPort(0x68, 2);
+    I2cPort *i2c = new I2cPort(0x68, 1);
     i2c->openConnection();
 
     MPU6050 *mpu6050 = new MPU6050(i2c);
