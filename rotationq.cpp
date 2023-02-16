@@ -32,7 +32,7 @@ using namespace std;
     quaternion qAlpha = Qtilt;
 
     qAlpha = qAlpha.getPolar();
-    
+
     qAlpha.phi = (1 - alpha) * qAlpha.phi;
     
     return qAlpha*Qgyro;
@@ -65,28 +65,30 @@ using namespace std;
 
     qt = qt.getPolar();
 
-    qt.print();
-    Qdelta.print();
+    //qt.print();
+    //Qdelta.print();
 
     quaternion Qgyro = qt*Qdelta;
-    Qgyro.print();
+    //Qgyro.print();
 
     quaternion Qbody,Qtilt;
 
     Qbody.setNormal(0,a);
 
     Qtilt = getTilt(Qbody);
-    Qtilt.print();
+    //Qtilt.print();
+    quaternion qZ = Qbody.rotateBy(Qtilt);
 
+    qZ.print();
     quaternion Qcorr = getQCorrected(Qtilt,Qgyro,0.8);
 
-    Qcorr.print();
+    //Qcorr.print();
 
     quaternion q0 = Qcorr.rotateBy(Qgyro);
 
     quaternion q1 = q0.rotateBy(Qtilt);
 
-    q1.print();
+    //q1.print();
 
     return q1;
 

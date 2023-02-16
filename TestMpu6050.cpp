@@ -67,7 +67,7 @@ int main() {
 
             //process
             q[1] = getNextQ(q[0],v,u,((double)(delay))/1000);
-            //q[1].print();
+            q[1].print();
             q[0] = q[1];
             end = clock();
             //cout<<end;
@@ -80,7 +80,7 @@ int main() {
         //usleep(200000);
         usleep(delay*1000);
 
-        break;
+        //break;
     }
 
     free(accels);
