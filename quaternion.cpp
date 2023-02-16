@@ -112,7 +112,7 @@ quaternion quaternion::operator=(const quaternion& q ){
 		v = q.v;
 	}else{
 		mag = q.mag;
-		phi = q.phi - floor(q.phi/PI) * PI;
+		phi = q.phi - ceil(q.phi/2PI) * 2PI;
 		n = q.n;
 	}
 
