@@ -195,6 +195,8 @@ quaternion quaternion::operator*(const quaternion& q){
 		q0.n = n * phi + q1.n * q1.phi;
 		q0.phi = q0.n.norm();
 		q0.n = q0.n/q0.phi;
+
+		q0.form = POLAR;
 	}else{
 
 		q1 = q1.getNormal();
@@ -202,6 +204,7 @@ quaternion quaternion::operator*(const quaternion& q){
 		q0.w = w*q1.w - v.dotProduct(q1.v);
 		q0.v = q1.v*w + v*q1.w + v*q1.v;
 
+		q0.form = NORMAL;
 	}
 	
 	return q0;
