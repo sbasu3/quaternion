@@ -58,7 +58,7 @@ using namespace std;
 
  quaternion getNextQ(const quaternion& Qt, const vector<double,3>& a, const vector<double,3>& omega,double deltaT){
 
-    quaternion qt = Qt;
+    quaternion qt = Qt.getPolar();
     quaternion Qdelta = getQDelta(deltaT,omega);
 
     qt.print();
