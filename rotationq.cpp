@@ -88,9 +88,19 @@ using namespace std;
 
     quaternion q1 = q0.rotateBy(Qtilt);
 
-    //q1.print();
+    q1 = scalePhi(q1);
 
     return q1;
 
 }
 
+quaternion scalePhi(quaternion q){
+
+    quaternion q0 = q;
+
+    q0 = q0.getPolar();
+
+    q0.phi = SCALE(q0.phi);
+
+    return q0;
+}

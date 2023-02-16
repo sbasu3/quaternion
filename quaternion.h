@@ -77,6 +77,7 @@ public:
     //apply complementary filter on acc and gyro values
     // alpha between 0 and 1
     friend quaternion getQCorrected(const quaternion& QTilt,const quaternion& Qgyro,double alpha);
-    friend quaternion getNextQ(const quaternion& Qt, const vector<double,3>& a, const vector<double,3>& omega,double deltaT);	
+    friend quaternion getNextQ(const quaternion& Qt, const vector<double,3>& a, const vector<double,3>& omega,double deltaT);
+	friend quaternion scalePhi(quaternion q);	
 
 };
