@@ -17,8 +17,11 @@ using namespace std;
 
     r.mag = 1;
     r.phi = deltaT*omegaMag;
-    r.n = omega/omegaMag;
 
+    if(omegaMag != 0)
+        r.n = omega/omegaMag;
+    else 
+        r.n.set(0,0,0);
     r.form = POLAR;
 
     return r;
