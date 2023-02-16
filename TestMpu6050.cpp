@@ -34,6 +34,8 @@ int main() {
     MPU6050 *mpu6050 = new MPU6050(i2c);
     mpu6050->initialize();
 
+    cout<<mpu6050->getRangeGyroscope()<<endl;
+    
     double scale_A = 16384;
     double scale_w = _(2PI*250)/(180*16384);
     int16_t *accels = (int16_t *) calloc(3, sizeof(int16_t));
