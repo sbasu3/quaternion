@@ -338,3 +338,12 @@ void quaternion::print(){
 		n.print();
 	}
 }
+
+double function scale(double x) {
+
+    x = fmod(x,_2PI);
+    if (x < 0)
+        x += _2PI;
+    return x;
+
+}

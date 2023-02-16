@@ -10,14 +10,7 @@
 #define _PI 3.14159
 #define _2PI 2*_PI
 
-double function scale(double x) {
 
-    x = fmod(x,_2PI);
-    if (x < 0)
-        x += _2PI;
-    return x;
-
-}
 
 enum QuatType { NORMAL = 0 , POLAR = 1};
 
@@ -88,3 +81,5 @@ public:
 	friend quaternion scalePhi(quaternion q);	
 
 };
+
+double function scale(double x);
