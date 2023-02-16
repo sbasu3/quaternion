@@ -80,7 +80,7 @@ using namespace std;
     quaternion qZ = Qbody.rotateBy(Qtilt);
 
     qZ.print();
-    quaternion Qcorr = getQCorrected(Qtilt,Qgyro,0.8);
+    quaternion Qcorr = getQCorrected(Qtilt,Qgyro,0.2);
 
     //Qcorr.print();
 
