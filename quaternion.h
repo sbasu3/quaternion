@@ -10,7 +10,7 @@
 #define _PI 3.14159
 #define _2PI 2*_PI
 
-#define SCALE(phi) (phi - ((int) (phi/_2PI)) * _2PI)
+#define SCALE(phi) (phi - ( ceil(phi/_2PI)) * _2PI)
 
 enum QuatType { NORMAL = 0 , POLAR = 1};
 
