@@ -16,7 +16,7 @@ using namespace std;
     double omegaMag = omega.norm();
 
     r.mag = 1;
-    r.phi = SCALE(deltaT*omegaMag);
+    r.phi = scale(deltaT*omegaMag);
 
     if(omegaMag != 0)
         r.n = omega/omegaMag;
@@ -100,7 +100,7 @@ quaternion scalePhi(quaternion q){
 
     q0 = q0.getPolar();
 
-    q0.phi = SCALE(q0.phi);
+    q0.phi = scale(q0.phi);
 
     return q0;
 }
