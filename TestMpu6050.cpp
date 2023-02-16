@@ -34,7 +34,8 @@ int main() {
     MPU6050 *mpu6050 = new MPU6050(i2c);
     mpu6050->initialize();
 
-    double k = 16384;
+    double scale_A = 16384;
+    double scale_w = 131;
     int16_t *accels = (int16_t *) calloc(3, sizeof(int16_t));
     int16_t *gyros = (int16_t *) calloc(3, sizeof(int16_t));
     vector<double,3> v,u;
@@ -54,11 +55,11 @@ int main() {
         //cout<<start;
 
         mpu6050->getAccelerations(accels);
-        v.set((double) accels[0] / k , (double) accels[1] / k, (double) accels[2] / k );
+        v.set((double) accels[0] / scale_A , (double) accels[1] / scale_A, (double) accels[2] / scale_A );
         //v.print();
 
         mpu6050->getAngularVelocities(gyros);
-        u.set((double) gyros[0] / k , (double) gyros[1] / k, (double) gyros[2] / k );
+        u.set((double) gyros[0] / scale_w , (double) gyros[1] / scale_w, (double) gyros[2] / scale_w );
         //u.print();
 
 

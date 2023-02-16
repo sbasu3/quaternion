@@ -73,7 +73,7 @@ quaternion quaternion::getNormal(void){
 		return *this;
 	else{
 			quaternion q0;
-			q0.w = mag*std::cos(phi);
+			q0.w = mag*cos(phi);
 			q0.v = n * mag * sin(phi);	
 			q0.form = NORMAL;
 
@@ -263,15 +263,15 @@ quaternion quaternion::conjugate(void){
 	quaternion q;
 
 
-	if(this->form == NORMAL){
+	if(form == NORMAL){
 
-		q.w = this->w;
-		q.v = this->v * (-1.0);
+		q.w = w;
+		q.v = v * (-1.0);
 		q.form = NORMAL; 
 	}else{
-		q.mag = this->mag;
-		q.phi = -SCALE(this->phi) ;
-		q.n = this->n;
+		q.mag = mag;
+		q.phi = -SCALE(phi) ;
+		q.n = n;
 		
 		q.form = POLAR;
 	}
