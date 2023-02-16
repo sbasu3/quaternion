@@ -29,7 +29,7 @@ using namespace std;
 
  quaternion getQCorrected(const quaternion& Qtilt, const quaternion& Qgyro, double alpha)
 {
-    quaternion qAlpha = Qtilt;
+    quaternion qAlpha = Qtilt.getPolar();
 
     qAlpha.phi = (1 - alpha) * qAlpha.phi;
     
