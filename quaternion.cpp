@@ -74,7 +74,7 @@ quaternion quaternion::getNormal(void){
 	else{
 			quaternion q0;
 			q0.w = mag*std::cos(phi);
-			q0.v = n * mag * std::sin(phi);	
+			q0.v = n * mag * sin(phi);	
 			q0.form = NORMAL;
 
 			return q0;
@@ -112,7 +112,7 @@ quaternion quaternion::operator=(const quaternion& q ){
 		v = q.v;
 	}else{
 		mag = q.mag;
-		phi = q.phi;
+		phi = q.phi - floor(q.phi/PI) * PI;
 		n = q.n;
 	}
 

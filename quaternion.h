@@ -7,6 +7,8 @@
 #include<iostream>
 #include "vector.cpp"
 
+#define PI 3.14159
+
 enum QuatType { NORMAL = 0 , POLAR = 1};
 
 using namespace std;
