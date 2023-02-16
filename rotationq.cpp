@@ -29,8 +29,10 @@ using namespace std;
 
  quaternion getQCorrected(const quaternion& Qtilt, const quaternion& Qgyro, double alpha)
 {
-    quaternion qAlpha = Qtilt.getPolar();
+    quaternion qAlpha = Qtilt;
 
+    qAlpha = qAlpha.getPolar();
+    
     qAlpha.phi = (1 - alpha) * qAlpha.phi;
     
     return qAlpha*Qgyro;
@@ -62,7 +64,7 @@ using namespace std;
     quaternion Qdelta = getQDelta(deltaT,omega);
 
     qt = qt.getPolar();
-    
+
     qt.print();
     Qdelta.print();
 
