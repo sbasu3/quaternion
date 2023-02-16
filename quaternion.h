@@ -7,8 +7,8 @@
 #include<iostream>
 #include "vector.cpp"
 
-#define PI 3.14159
-#define 2PI 2*PI
+#define _PI 3.14159
+#define _2PI 2*_PI
 
 enum QuatType { NORMAL = 0 , POLAR = 1};
 
