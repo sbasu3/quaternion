@@ -33,6 +33,8 @@ int main() {
 
     MPU6050 *mpu6050 = new MPU6050(i2c);
     mpu6050->initialize();
+    
+    mpu6050->setRangeGyroscope(250);
 
     cout<<mpu6050->getRangeGyroscope()<<endl;
 
