@@ -82,4 +82,4 @@ public:
 
 };
 
-double function scale(double x);
+double  scale(double x);
