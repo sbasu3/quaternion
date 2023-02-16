@@ -186,17 +186,9 @@ quaternion quaternion::operator*(const quaternion& q){
 	//vector vec;
 	q1 = q;
 	if(form == POLAR){
+		q0 = this->getNormal();
+		return q0*q1;
 
-
-		q1 = q1.getPolar();
-
-		q0.mag = mag * q1.mag;
-	
-		q0.n = n * phi + q1.n * q1.phi;
-		q0.phi = scale(q0.n.norm());
-		q0.n = q0.n/q0.n.norm();
-
-		q0.form = POLAR;
 	}else{
 
 		q1 = q1.getNormal();
@@ -309,7 +301,7 @@ vector<double,3> quaternion::normalise(void){
 	}else{
 		//maybe division is not required
 		assert(n.norm() == 1);
-		x = n/n.norm();
+		x = n;
 	}
 
 
