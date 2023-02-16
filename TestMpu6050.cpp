@@ -35,9 +35,9 @@ int main() {
     mpu6050->initialize();
 
     cout<<mpu6050->getRangeGyroscope()<<endl;
-    
+
     double scale_A = 16384;
-    double scale_w = _(2PI*250)/(180*16384);
+    double scale_w = (_2PI*250)/(180*16384);
     int16_t *accels = (int16_t *) calloc(3, sizeof(int16_t));
     int16_t *gyros = (int16_t *) calloc(3, sizeof(int16_t));
     vector<double,3> v,u;
