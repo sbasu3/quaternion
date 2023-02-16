@@ -339,7 +339,7 @@ void quaternion::print(){
 	}
 }
 
-double function scale(double x) {
+double scale(double x) {
 
     x = fmod(x,_2PI);
     if (x < 0)
