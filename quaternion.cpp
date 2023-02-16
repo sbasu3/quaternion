@@ -37,7 +37,7 @@ quaternion::quaternion(const quaternion& q){
 		v = q.v;
 	}else{
 		mag = q.mag;
-		phi = q.phi;
+		phi = SCALE(q.phi);
 		n = q.n;
 	}
 
@@ -62,7 +62,7 @@ void quaternion::setPolar(const double& mag, const double& phi, const vector<dou
 	form = POLAR;
 
 	this->mag = mag;
-	this->phi = phi;
+	this->phi = SCALE(phi);
 	this->n = n;
 
 }
@@ -112,7 +112,7 @@ quaternion quaternion::operator=(const quaternion& q ){
 		v = q.v;
 	}else{
 		mag = q.mag;
-		phi = q.phi - ceil(q.phi/_2PI) * _2PI;
+		phi = SCALE(q.phi) ;
 		n = q.n;
 	}
 
@@ -130,7 +130,7 @@ bool quaternion::operator==(const quaternion& q ){
 		}
 	}else{
 		if(this->form == POLAR){
-			return ( ( mag == q.mag) && ( phi == q.phi) && ( n == q.n ));
+			return ( ( mag == q.mag) && ( SCALE(phi) == SCALE(q.phi)) && ( n == q.n ));
 		}else{
 			quaternion q0 = this->getPolar();
 			return ( q0 == q);
@@ -193,8 +193,8 @@ quaternion quaternion::operator*(const quaternion& q){
 		q0.mag = mag * q1.mag;
 	
 		q0.n = n * phi + q1.n * q1.phi;
-		q0.phi = q0.n.norm();
-		q0.n = q0.n/q0.phi;
+		q0.phi = SCALE(q0.n.norm());
+		q0.n = q0.n/q0.n.norm();
 
 		q0.form = POLAR;
 	}else{
@@ -221,7 +221,7 @@ quaternion quaternion::operator*(const double& val){
 		q.form = NORMAL;
 	}else{
 		q.mag = mag * val;
-		q.phi = phi;
+		q.phi = SCALE(phi);
 		q.n = n;
 		q.form = POLAR;
 	}
@@ -240,7 +240,7 @@ quaternion quaternion::operator/(const double & val){
 	}else{
 
 		q.mag = mag / val;
-		q.phi = phi;
+		q.phi = SCALE(phi);
 		q.n = n;
 		q.form = POLAR;
 	}
@@ -270,7 +270,7 @@ quaternion quaternion::conjugate(void){
 		q.form = NORMAL; 
 	}else{
 		q.mag = this->mag;
-		q.phi = -this->phi ;
+		q.phi = -SCALE(this->phi) ;
 		q.n = this->n;
 		
 		q.form = POLAR;
@@ -295,7 +295,7 @@ quaternion quaternion::pow(const double& x){
 
 	q0.mag = std::pow(q0.mag,x);
 
-	q0.phi = q0.phi * x;
+	q0.phi = SCALE(q0.phi * x);
 
 	return q0;
 
@@ -338,21 +338,3 @@ void quaternion::print(){
 		n.print();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

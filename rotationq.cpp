@@ -16,7 +16,7 @@ using namespace std;
     double omegaMag = omega.norm();
 
     r.mag = 1;
-    r.phi = deltaT*omegaMag;
+    r.phi = SCALE(deltaT*omegaMag);
 
     if(omegaMag != 0)
         r.n = omega/omegaMag;
