@@ -308,6 +308,7 @@ vector<double,3> quaternion::normalise(void){
 		x = v/v.norm();
 	}else{
 		//maybe division is not required
+		assert(n.norm() == 1);
 		x = n/n.norm();
 	}
 
