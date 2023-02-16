@@ -36,10 +36,10 @@ int main() {
     
     mpu6050->setRangeGyroscope(1);
 
-    cout<<mpu6050->getRangeGyroscope()<<endl;
+    cout<<(mpu6050->getRangeGyroscope())<<endl;
 
     double scale_A = 16384;
-    double scale_w = (_2PI*250)/(180*16384);
+    double scale_w = 65.5;
     int16_t *accels = (int16_t *) calloc(3, sizeof(int16_t));
     int16_t *gyros = (int16_t *) calloc(3, sizeof(int16_t));
     vector<double,3> v,u;
@@ -63,7 +63,7 @@ int main() {
         //v.print();
 
         mpu6050->getAngularVelocities(gyros);
-        u.set((double) gyros[0] / scale_w , (double) gyros[1] / scale_w, (double) gyros[2] / scale_w );
+        u.set((double) DEG2RAD(gyros[0] / scale_w) , (double) DEG2RAD(gyros[1] / scale_w), (double) DEG2RAD(gyros[2] / scale_w) );
         //u.print();
 
 

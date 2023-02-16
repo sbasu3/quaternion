@@ -9,7 +9,7 @@
 
 #define _PI 3.14159
 #define _2PI 2*_PI
-
+#define DEG2RAD(x) ((x)*_PI)/180;
 
 
 enum QuatType { NORMAL = 0 , POLAR = 1};
