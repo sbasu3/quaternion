@@ -61,7 +61,7 @@ public:
 	quaternion pow(const double& x);
 
 	//only normalises vector component and returns it
-	vector<double,3> normalise(void);
+	quaternion normalise(void);
 	//will add when I require it
 	//friend quaternion exp(const quaternion& q);
 	//friend quaternion log(const quaternion& q);

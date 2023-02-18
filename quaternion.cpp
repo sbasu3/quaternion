@@ -292,20 +292,9 @@ quaternion quaternion::pow(const double& x){
 	return q0;
 
 }
-vector<double,3> quaternion::normalise(void){
+quaternion quaternion::normalise(void){
 
-	vector<double,3> x;
-
-	if (form == NORMAL){
-		x = v/v.norm();
-	}else{
-		//maybe division is not required
-		assert(n.norm() == 1);
-		x = n;
-	}
-
-
-	return x;
+	return *this/this->norm();
 
 }
 

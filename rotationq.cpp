@@ -42,9 +42,11 @@ using namespace std;
 
     quaternion q0 = q;
 
-    vector<double,3> u = q0.normalise();
+    quaternion u = q0.normalise();
 
-    double *v = u.get();
+    u = u.getNormal();
+
+    double *v = u.v.get();
 
     double den = sqrt(v[0]*v[0] + v[2]*v[2]);
 
