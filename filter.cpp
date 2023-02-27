@@ -19,7 +19,13 @@ Zfilter::Zfilter(unsigned M_in, vector<double> numerator, unsigned N_in ,vector<
     den.reSize(N);
     num.setAll(0);
     den.setAll(0);
-    alpha = den_coeff.shiftLeft(0);
+    
+    double alpha = den_coeff.shiftLeft(0);
+
+    assert(alpha);
+
+    num_coeff = num_coeff/alpha;
+    den_coeff = den_coeff/alpha;
 }
 
 Zfilter::~Zfilter(){
@@ -29,7 +35,7 @@ double Zfilter::calcOut( double n){
     double val;
 
     num.shiftRight(n);
-    val = (num.dotProduct(num_coeff) - den.dotProduct(den_coeff))/alpha;
+    val = (num.dotProduct(num_coeff) - den.dotProduct(den_coeff));
     den.shiftRight(val);
 
     return val;

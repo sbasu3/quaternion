@@ -15,7 +15,7 @@ class Zfilter{
         vector<double> den_coeff;
         vector<double> num;
         vector<double> den;
-        double alpha;
+        //double alpha;
         unsigned int M;
         unsigned int N;
     public:

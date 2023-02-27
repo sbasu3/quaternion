@@ -88,7 +88,7 @@ template <typename T> bool vector<T>::operator!=(const vector<T>& v){
 
 template <typename T> vector<T> vector<T>::operator+(const vector<T>& v){
 
-	vector<T> tmp;
+	vector<T> tmp(length);
 	uint32_t i;
 
 	for(i = 0; i < this->length ; i++){
@@ -99,7 +99,7 @@ template <typename T> vector<T> vector<T>::operator+(const vector<T>& v){
 }
 
 template <typename T> vector<T> vector<T>::operator-(const vector<T>& v){
-	vector<T> tmp;
+	vector<T> tmp(length);
 	uint32_t i;
 
 	for(i = 0; i < this->length ; i++){
@@ -162,7 +162,7 @@ template <typename T>  T vector<T>::norm(){
 }
 	
 template <typename T> vector<T> vector<T>::operator*(const T num){				//multiplication by scalar
-	vector<T> a;
+	vector<T> a(length);
 	uint32_t i;
 
 	for(i=0 ; i < this->length; i++)
@@ -172,7 +172,7 @@ template <typename T> vector<T> vector<T>::operator*(const T num){				//multipli
 	return a; 
 }
 template <typename T> vector<double> vector<T>::operator/(T num){
-	vector<T> a;
+	vector<T> a(length);
 	uint32_t i;
 	assert( num != 0 );
 	for(i=0 ; i < this->length; i++)
@@ -184,7 +184,7 @@ template <typename T> vector<double> vector<T>::operator/(T num){
 
 template<typename T> T vector<T>::shiftRight(T num)
 {
-	int ret = vec[length - 1];
+	T ret = vec[length - 1];
 
 	for(int i = length - 1; i > 0; i--)
 		vec[i] = vec[i - 1];
@@ -194,7 +194,7 @@ template<typename T> T vector<T>::shiftRight(T num)
 }
 template<typename T> T vector<T>::shiftLeft(T num)
 {
-	int ret = vec[0];
+	T ret = vec[0];
 
 	for(int i = 0; i < length - 1; i++)
 		vec[i] = vec[i + 1];

@@ -44,13 +44,22 @@ int main (void){
 
 	b.print();
 	*/
-	vector<double> n(1);
-	vector<double> d(2);
-	n[0] = 0.2;
+	vector<double> n(5);
+	vector<double> d(5);
+
+	n[0] = 4.824e-3;
+	n[1] = 1.927e-2;
+	n[2] = 2.894e-2;
+	n[3] = n[1];
+	n[4] = n[0];
+
 	d[0] = 1;
-	d[1] = 0.8;
+	d[1] = -2.3695;
+	d[2] = 2.3140;
+	d[3] = -1.0547;
+	d[4] = 0.1874;
 	
-	Zfilter lowpass(1,n,2,d);
+	Zfilter lowpass(5,n,5,d);
 
 	double arr[180];
 	double out[180];
