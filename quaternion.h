@@ -23,25 +23,26 @@ protected:
 	QuatType form;
 	//simple form
 	double w;
-	vector<double,3> v;
+	vector<double> v;
 	//polar form
 	double mag;
 	double phi;
-	vector<double,3> n;
+	vector<double> n;
 
 public:
 	//constructors and destructors
 	quaternion();
-	quaternion(const double& w, const vector<double,3>& v);
-	quaternion(const double& mag, const double& phi, const vector<double,3>& n);
+	quaternion(const double& w, const vector<double>& v);
+	quaternion(const double& mag, const double& phi, const vector<double>& n);
 	quaternion(const quaternion& q);
 	~quaternion();
 
 	//operators
-	void setNormal(const double& w, const vector<double,3>& v);
-	void setPolar(const double& mag, const double& phi, const vector<double,3>& n);
+	void setNormal(const double& w, const vector<double>& v);
+	void setPolar(const double& mag, const double& phi, const vector<double>& n);
 	quaternion getNormal(void);
 	quaternion getPolar(void);
+	vector<double> getVec(void);
 	quaternion operator=(const quaternion& q );
 	bool operator==(const quaternion& q );
 	bool operator!=(const quaternion& q );
@@ -72,12 +73,12 @@ public:
     friend quaternion getTilt();
     // omega are the gryo values
     // deltaT is the elapsed time since last
-    friend quaternion getQDelta(double deltaT, vector<double,3> omega);
+    friend quaternion getQDelta(double deltaT, vector<double> omega);
     friend quaternion getTilt(const quaternion& q);
     //apply complementary filter on acc and gyro values
     // alpha between 0 and 1
     friend quaternion getQCorrected(const quaternion& QTilt,const quaternion& Qgyro,double alpha);
-    friend quaternion getNextQ(const quaternion& Qt, const vector<double,3>& a, const vector<double,3>& omega,double deltaT);
+    friend quaternion getNextQ(const quaternion& Qt, const vector<double>& a, const vector<double>& omega,double deltaT);
 	friend quaternion scalePhi(quaternion q);	
 
 };

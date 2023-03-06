@@ -5,6 +5,8 @@
 // Creation Date : 1 July 2022
 /////////////////////////////////////////////////////
 #include"vector.h"
+
+
 template <typename T > vector<T>::vector(){
 	length = 0;
 	vec = NULL;
@@ -52,12 +54,12 @@ template <typename T> vector<T>::vector(const vector<T>& v ){
 
 template <typename T> void vector<T>::set(const T& x,const  T& y ,const T& z){
 
-	length = 3;
+	assert(length = 3);
 
 	vec[0] = x;
 	vec[1] = y;
 	vec[2] = z;
-}// special for vector
+}// special for vector of size 3
 
 template <typename T> T* vector<T>::get(void){
 
@@ -115,7 +117,7 @@ template <typename T> vector<T> vector<T>::operator*(const vector<T>& v){
 // Cross product defined for vector 3
 // i *j = k , j * k = i , k * i = j , i *j *k = -1
 	assert( length ==  3 );
-	vector<T> tmp;
+	vector<T> tmp(3);
 
 	tmp.vec[0] = vec[1] * v.vec[2] - v.vec[1] * vec[2];
 	tmp.vec[1] = vec[0] * v.vec[2] - v.vec[0] * vec[2];

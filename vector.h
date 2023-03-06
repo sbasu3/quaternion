@@ -21,11 +21,11 @@ private:
 	uint32_t length;
 	T   *vec;
 public:
-	vector<T>();
-	vector<T>(unsigned int n);
+	vector();
+	vector(unsigned int n);
 	//vector<T,len>(const T& x,const  T& y,const T& z);
-	vector<T>(const vector<T>& v );
-	~vector<T>(void);
+	vector(const vector<T>& v );
+	~vector(void);
 	void reSize(unsigned int n);
 	void set(const T& x,const  T& y ,const  T& z);					// special for vector3
 	T* get(void);

@@ -12,18 +12,20 @@ quaternion::quaternion(){
 
 	//NORMAL
 	w = 0.0;
+	v.reSize(3);
 
 	//POLAR
 	mag = 0.0;
 	phi = 0.0;
+	n.reSize(3);
 }
 
-quaternion::quaternion(const double& w, const vector<double,3>& v){
+quaternion::quaternion(const double& w, const vector<double>& v){
 
 	this->setNormal(w,v);
 }
 
-quaternion::quaternion(const double& mag, const double& phi, const vector<double,3>& n){
+quaternion::quaternion(const double& mag, const double& phi, const vector<double>& n){
 
 	this->setPolar(mag,phi,n);
 }
@@ -31,6 +33,8 @@ quaternion::quaternion(const double& mag, const double& phi, const vector<double
 quaternion::quaternion(const quaternion& q){
 
 	form = q.form;
+	v.reSize(3);
+	n.reSize(3);
 
 	if(form == NORMAL){
 		w = q.w;
@@ -47,7 +51,7 @@ quaternion::~quaternion(){
 
 }
 
-void quaternion::setNormal(const double& w, const vector<double,3>& v){
+void quaternion::setNormal(const double& w, const vector<double>& v){
 
 
 	form = NORMAL;
@@ -57,7 +61,7 @@ void quaternion::setNormal(const double& w, const vector<double,3>& v){
 
 }
 
-void quaternion::setPolar(const double& mag, const double& phi, const vector<double,3>& n){
+void quaternion::setPolar(const double& mag, const double& phi, const vector<double>& n){
 
 	form = POLAR;
 
@@ -106,7 +110,10 @@ quaternion quaternion::getPolar(void){
 quaternion quaternion::operator=(const quaternion& q ){
 
 	form = q.form;
-
+	
+	v.reSize(3);
+	n.reSize(3);
+	
 	if(form == NORMAL){
 		w = q.w;
 		v = q.v;
@@ -117,6 +124,11 @@ quaternion quaternion::operator=(const quaternion& q ){
 	}
 
 	return *this;
+}
+vector<double> quaternion::getVec(void){
+	quaternion q = this->getNormal();
+
+	return q.v;
 }
 
 bool quaternion::operator==(const quaternion& q ){

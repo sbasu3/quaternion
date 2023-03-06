@@ -9,7 +9,7 @@
 
 using namespace std;
 
- quaternion getQDelta(double deltaT, vector<double, 3> omega)
+quaternion getQDelta(double deltaT, vector<double> omega)
 {
     quaternion r;
 
@@ -27,7 +27,7 @@ using namespace std;
     return r;
 }
 
- quaternion getQCorrected(const quaternion& Qtilt, const quaternion& Qgyro, double alpha)
+quaternion getQCorrected(const quaternion& Qtilt, const quaternion& Qgyro, double alpha)
 {
     quaternion qAlpha = Qtilt;
 
@@ -38,7 +38,7 @@ using namespace std;
     return qAlpha*Qgyro;
 }
 
- quaternion getTilt(const quaternion& q){
+quaternion getTilt(const quaternion& q){
 
     quaternion q0 = q;
 
@@ -60,7 +60,7 @@ using namespace std;
     
 }
 
- quaternion getNextQ(const quaternion& Qt, const vector<double,3>& a, const vector<double,3>& omega,double deltaT){
+quaternion getNextQ(const quaternion& Qt, const vector<double>& a, const vector<double>& omega,double deltaT){
 
     quaternion qt = Qt;
     quaternion Qdelta = getQDelta(deltaT,omega);

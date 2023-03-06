@@ -11,7 +11,7 @@
 int main(void){
 
     quaternion q[10];
-    vector<double,3> v;
+    vector<double> v(3);
     //test constructor
     quaternion q0(1,v);
     v.set(0,1,0);
@@ -39,7 +39,8 @@ int main(void){
     v.set(1,1,1);
     q[0].setNormal(1,v);
 
-    v = q[0].normalise();
+    q[1] = q[0].normalise();
+    v = q[1].getVec();
 
     v.print();
 
@@ -99,9 +100,9 @@ int main(void){
 
     q[3].print();
 
-    q[2].rotateBy(q[3]);
+    q[3] = q[2].rotateBy(q[3]);
 
-    q[2].print();
+    q[3].print();
 
 
 }
