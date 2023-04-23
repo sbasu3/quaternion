@@ -1,6 +1,8 @@
 #include<iostream>
 #include "vector.h"
 #include "filter.h"
+#include <math.h>
+#include "cordic.h"
 
 //template class vector<double,3>;
 
@@ -43,7 +45,7 @@ int main (void){
 	b = a/3.0;
 
 	b.print();
-	*/
+
 	vector<double> n(5);
 	vector<double> d(5);
 
@@ -69,6 +71,18 @@ int main (void){
 		out[i] = lowpass.calcOut(arr[i]);
 		cout<<out[i]<<endl;
 	}
+	*/
+	int i = 0;
+	double angle = 0;
 
+	for (i =0; i < 360; i++){
+		angle = (i * PI)/180;
+		double cos_err = cos(angle) - cordic_cos(angle);
+		double sin_err = sin(angle) - cordic_sin(angle);
+		double err = sqrt(pow(cos_err,2) + pow(sin_err,2));
+
+		printf("error : %f , angle %f\n",err,angle);\
+		printf("Cos: %f, Sine: %f\n",cordic_cos(angle),cordic_sin(angle));
+	}
 	
 }
