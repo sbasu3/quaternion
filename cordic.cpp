@@ -19,7 +19,7 @@ const angle_value_tuple lut[12] = {
                                     {SCALE>>7,0.0078},
                                     {SCALE>>8,0.0039},
                                     {SCALE>>9,0.0020},
-                                    {SCALE>>10,0.0009},
+                                    {SCALE>>10,0.0010},
                                     {SCALE>>11,0.0005}
                                     };
 
@@ -37,13 +37,36 @@ unsigned int lookup(double angle){
 
 void cordic_theta(int *X, int *Y, double theta){
     double Z;
+    int tmp= 0;
+
     int sigma;
     double angle;
     unsigned int i = 0;
     unsigned int idx = 0;
-    Z = fmod(theta,PI);
-    if(Z > PI/2)
-        Z = -(PI - Z);
+    quads_t q;
+
+
+    Z = fmod(theta,2*PI);
+    if( Z < 0)
+        Z = Z + 2*PI;
+
+    if((Z < PI/2) && ( Z > 0 )){
+        q = QUAD1;
+    } else if ((Z > PI/2) && (Z < PI)){
+        q = QUAD2;
+        Z = Z - PI/2;
+    } else if ((Z > PI) && ( Z < 3*PI/2))
+    {
+        q = QUAD3;
+        Z = Z - PI;
+    }else if ((Z > 3*PI/2) && ( Z < 2*PI))
+    {
+        q = QUAD4;
+        Z = Z - 3*PI/2;
+    }
+    
+    
+    
 
     sigma = (Z>0)?1:-1;
     *X = 9949;
@@ -53,15 +76,36 @@ void cordic_theta(int *X, int *Y, double theta){
     do
     {
         angle = lut[idx].angle;
-        *X = (*X) - ((sigma * (*Y))>>i) ;
-        *Y = (*Y) + ((sigma * (*X))>>i) ;
+        *X = (*X) - (sigma * ((*Y)>>idx)) ;
+        *Y = (*Y) + (sigma * ((*X)>>idx)) ;
         Z = Z - (sigma * angle);
         sigma = ( Z > 0 )? 1:-1;
         i++;
         idx = i;
 
-    } while ((Z > ERROR_THRESHOLD) || ( i < 12));
-    
+    } while ((Z > ERROR_THRESHOLD) && ( i < 12));
+
+    switch (q)
+    {
+    case QUAD1:
+        break;
+    case QUAD2:
+        tmp = -*X;
+        *X = *Y;
+        *Y = tmp;
+        break;
+    case QUAD3:
+        *X = -*X;
+        *Y = -*Y;
+        break;
+    case QUAD4:
+        tmp = *Y;
+        *Y = *X;
+        *X = -tmp;
+        break;
+    default:
+        break;
+    }    
 }
 
 double cordic_sin(double theta){

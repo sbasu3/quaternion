@@ -16,7 +16,7 @@
 #define ERROR_THRESHOLD 1e-6
 #define PI 3.14159
 #define SCALE 16384
-
+typedef enum {QUAD1 = 1,QUAD2,QUAD3,QUAD4} quads_t;
 typedef struct {
     int value;
     double angle;
